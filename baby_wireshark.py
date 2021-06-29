@@ -55,9 +55,9 @@ def pcap_parser(packets):
           ip_list.append(packet[IP].dst)
       return format_func(ip_list)
     elif pcap_menu == '3':
-      return(protocols(packets)
+      return protocols(packets)
     elif pcap_menu == '4':
-      return(ip_scanner(packets)
+      return ip_scanner(packets)
     else:
       print('Please select a valid menu option.')
 
