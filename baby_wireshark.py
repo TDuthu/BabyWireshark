@@ -64,19 +64,17 @@ def pcap_parser(packets):
 
 #protocols will take in packets and filter by protocol
 def protocols(packets):
+  print(packets)
   loop = True
   while loop:
-    proto_menu = input('Which protocol?\n[1] Number of each\n[2] TCP\n[3] UDP\n[4] ICMP\n[5] HTTP\n')
+    proto_menu = input('Which protocol?\n[1] TCP\n[2] UDP\n[3] ICMP\n[4] HTTP\n')
     if proto_menu == '1':
-      print(packets)
-      loop = False
+      print('Under construction at the moment...')
     elif proto_menu == '2':
       print('Under construction at the moment...')
     elif proto_menu == '3':
       print('Under construction at the moment...')
     elif proto_menu == '4':
-      print('Under construction at the moment...')
-    elif proto_menu == '5':
       print('Under construction at the moment...')
     else:
       print('Please select a valid menu option. [1]')
