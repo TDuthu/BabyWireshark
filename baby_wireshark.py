@@ -3,9 +3,9 @@ import re
 import sys
 from scapy.all import *
 global re_ip
-re_ip = re.compile('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+re_ip = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 
-#main takes in a file and forwards it to the correct parser
+#main will take in a file and forward it to the correct parser
 def main():
   if len(sys.argv) != 2:
     sys.exit('Please execute with one file next time.')
@@ -21,9 +21,9 @@ def main():
         packets = rdpcap(input_file)
         return(pcap_parser(packets))
       else:
-        print('Please select [1] or [2].')
+        print('Please select a valid menu option.')
 
-#txt_parser takes in a text file, grabs all IP addresses, and forwards to format_func
+#txt_parser will take in a text file, grab all IP addresses, and forward to format_func
 def txt_parser(input_file):
   raw_list = []
   ip_list = []
@@ -38,7 +38,7 @@ def txt_parser(input_file):
   ip_list = [item for sublist in raw_list for item in sublist]
   format_func(ip_list)
 
-#pcap_parser takes in packets and forwards them to the correct function
+#pcap_parser will take in packets and forward them to the correct function
 def pcap_parser(packets):
   loop = True
   while loop:
@@ -56,13 +56,32 @@ def pcap_parser(packets):
           ip_list.append(packet[IP].dst)
       return format_func(ip_list)
     elif pcap_menu == '3':
-      print('Under construction at the moment...')
+      return protocols(packets)
     elif pcap_menu == '4':
       return ip_search(packets)
     else:
       print('Please select a valid menu option.')
 
-#ip_search takes in packets and searches for all packets matching ip_input
+#protocols will take in packets and filter by protocol
+def protocols(packets):
+  loop = True
+  while loop:
+    proto_menu = input('Which protocol?\n[1] Number of each\n[2] TCP\n[3] UDP\n[4] ICMP\n[5] HTTP\n')
+    if proto_menu == '1':
+      print(packets)
+      loop = False
+    elif proto_menu == '2':
+      print('Under construction at the moment...')
+    elif proto_menu == '3':
+      print('Under construction at the moment...')
+    elif proto_menu == '4':
+      print('Under construction at the moment...')
+    elif proto_menu == '5':
+      print('Under construction at the moment...')
+    else:
+      print('Please select a valid menu option. [1]')
+
+#ip_search will take in packets and search for all packets matching user's ip_input
 def ip_search(packets):
   ip_input = input('Enter an IP address: ')
   if re.match(re_ip, ip_input) != None:
