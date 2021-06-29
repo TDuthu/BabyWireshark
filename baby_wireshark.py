@@ -55,10 +55,26 @@ def pcap_parser(packets):
           ip_list.append(packet[IP].dst)
       return format_func(ip_list)
     elif pcap_menu == '3':
-      loop = False
-      print('<List of pcap by Protocols here>')
+      return(protocols(packets)
     elif pcap_menu == '4':
       return(ip_scanner(packets)
+    else:
+      print('Please select a valid menu option.')
+
+def protocols(packets):
+  loop = True
+  while loop:
+    proto_menu = input('Which type of protocol?\n[1] List by protocol\n[2] TCP\n[3] UDP\n[4] ICMP\n[5] HTTP\n')
+    if proto_menu == '1':
+      
+    elif proto_menu == '2':
+      
+    elif proto_menu == '3':
+      
+    elif proto_menu == '4':
+      
+    elif proto_menu == '5':
+      
     else:
       print('Please select a valid menu option.')
 
