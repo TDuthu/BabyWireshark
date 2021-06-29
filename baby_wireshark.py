@@ -2,6 +2,8 @@
 import re
 import sys
 from scapy.all import *
+global re_ip
+re_ip = re.compile('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
 
 #main takes in a file and forwards it to the correct parser
 def main():
@@ -23,7 +25,6 @@ def main():
 
 #txt_parser takes in a text file, grabs all IP addresses, and forwards to format_func
 def txt_parser(input_file):
-  re_ip = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
   raw_list = []
   ip_list = []
   #read the file
@@ -41,7 +42,7 @@ def txt_parser(input_file):
 def pcap_parser(packets):
   loop = True
   while loop:
-    pcap_menu = input('What are you looking for?\n[1] Sources\n[2] Destinations\n[3] Protocols\n[4] IP Scanner\n')
+    pcap_menu = input('What are you looking for?\n[1] Sources\n[2] Destinations\n[3] Protocols\n[4] IP Search\n')
     if pcap_menu == '1':
       ip_list = []
       for packet in packets:
@@ -55,35 +56,25 @@ def pcap_parser(packets):
           ip_list.append(packet[IP].dst)
       return format_func(ip_list)
     elif pcap_menu == '3':
-      return(protocols(packets)
+      print('Under construction at the moment...')
     elif pcap_menu == '4':
-      return(ip_scanner(packets)
+      return ip_search(packets)
     else:
       print('Please select a valid menu option.')
 
-def protocols(packets):
-  loop = True
-  while loop:
-    proto_menu = input('Which type of protocol?\n[1] List by protocol\n[2] TCP\n[3] UDP\n[4] ICMP\n[5] HTTP\n')
-    if proto_menu == '1':
-      
-    elif proto_menu == '2':
-      
-    elif proto_menu == '3':
-      
-    elif proto_menu == '4':
-      
-    elif proto_menu == '5':
-      
-    else:
-      print('Please select a valid menu option.')
+#ip_search takes in packets and searches for all packets matching ip_input
+def ip_search(packets):
+  ip_input = input('Enter an IP address: ')
+  if re.match(re_ip, ip_input) != None:
+    print('I found these packets with that IP:\n')
+    for packet in packets:
+      if IP in packet:
+        if packet[IP].src == ip_input or packet[IP].dst == ip_input:
+          print(packet.summary,'\n')
+  else:
+    ip_search(packets)
 
-#def ip_search (packets):
-#  search_ip = input('Enter an IP address: ')
-#  for packet in packets:
-#    if IP in packet:
-
-#format_func will take in the IP list and count the number of times each one appears
+#format_func will take in ip_list and count the number of times each one appears
 def format_func(ip_list):
   total = len(ip_list)
   ip_dict = {}
