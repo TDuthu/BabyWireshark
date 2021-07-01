@@ -64,20 +64,39 @@ def pcap_parser(packets):
 
 #protocols will take in packets and filter by protocol
 def protocols(packets):
-  print(packets)
+  print(packets)  
   loop = True
   while loop:
-    proto_menu = input('Which protocol?\n[1] TCP\n[2] UDP\n[3] ICMP\n[4] HTTP\n')
+    proto_menu = input('Which type of protocol?\n[1] TCP \n[2] UDP \n[3] ICMP \n[4] Other\n')
     if proto_menu == '1':
-      print('Under construction at the moment...')
+        TCP_count=0
+        for packet in packets:
+            if TCP in packet:
+                TCP_count+=1
+                print(packet.summary,'\n')
+        print('The total amount of TCP connections is: ' + str(TCP_count))
+        loop=False
     elif proto_menu == '2':
-      print('Under construction at the moment...')
+        UDP_count=0
+        for packet in packets:
+            if UDP in packet:
+                UDP_count+=1
+                print(packet.summary,'\n')
+        print('The total amount of UDP connections is: ' + str(UDP_count))
+        loop=False
     elif proto_menu == '3':
-      print('Under construction at the moment...')
+        ICMP_count=0
+        for packet in packets:
+            if ICMP in packet:
+                ICMP_count+=1
+                print(packet.summary,'\n')
+        print('The total amount of ICMP connections is: ' + str(ICMP_count))
+        loop=False
     elif proto_menu == '4':
-      print('Under construction at the moment...')
-    else:
-      print('Please select a valid menu option. [1]')
+        Other_count=0
+        for packet in packets:
+            if TCP not in packet and UDP not in packet and ICMP not in packet:
+                print(packet.summary,'\n')
 
 #ip_search will take in packets and search for all packets matching user's ip_input
 def ip_search(packets):
