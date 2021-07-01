@@ -69,34 +69,39 @@ def protocols(packets):
   while loop:
     proto_menu = input('Which type of protocol?\n[1] TCP \n[2] UDP \n[3] ICMP \n[4] Other\n')
     if proto_menu == '1':
-        TCP_count=0
-        for packet in packets:
-            if TCP in packet:
-                TCP_count+=1
-                print(packet.summary,'\n')
-        print('The total amount of TCP connections is: ' + str(TCP_count))
-        loop=False
+      TCP_count=0
+      for packet in packets:
+        if TCP in packet:
+          TCP_count+=1
+          print(packet.summary,'\n')
+      print('The total amount of TCP connections is: '+str(TCP_count))
+      loop=False
     elif proto_menu == '2':
-        UDP_count=0
-        for packet in packets:
-            if UDP in packet:
-                UDP_count+=1
-                print(packet.summary,'\n')
-        print('The total amount of UDP connections is: ' + str(UDP_count))
-        loop=False
+      UDP_count=0
+      for packet in packets:
+        if UDP in packet:
+          UDP_count+=1
+          print(packet.summary,'\n')
+      print('The total amount of UDP connections is: '+str(UDP_count))
+      loop=False
     elif proto_menu == '3':
-        ICMP_count=0
-        for packet in packets:
-            if ICMP in packet:
-                ICMP_count+=1
-                print(packet.summary,'\n')
-        print('The total amount of ICMP connections is: ' + str(ICMP_count))
-        loop=False
+      ICMP_count=0
+      for packet in packets:
+        if ICMP in packet:
+          ICMP_count+=1
+          print(packet.summary,'\n')
+      print('The total amount of ICMP connections is: '+str(ICMP_count))
+      loop=False
     elif proto_menu == '4':
-        Other_count=0
-        for packet in packets:
-            if TCP not in packet and UDP not in packet and ICMP not in packet:
-                print(packet.summary,'\n')
+      Other_count=0
+      for packet in packets:
+        if TCP not in packet and UDP not in packet and ICMP not in packet:
+          Other_count+=1
+          print(packet.summary,'\n')
+      print('The total amount of other connections is: '+str(Other_count))
+      loop=False
+    else:
+      print('Please enter a valid menu option.')
 
 #ip_search will take in packets and search for all packets matching user's ip_input
 def ip_search(packets):
