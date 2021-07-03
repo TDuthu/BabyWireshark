@@ -14,7 +14,6 @@ def main():
     input_file = sys.argv[1]
     loop = True
     while loop:
-      print(shark)
       main_menu = input('What type of file is this?\n[1] txt\n[2] pcap\n')
       if main_menu == '1':
         return(txt_parser(input_file))
