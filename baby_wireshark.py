@@ -78,6 +78,7 @@ def protocols(packets):
           print(packet.summary,'\n')
       print('The total amount of TCP connections is: '+str(TCP_count))
       loop=False
+      cont()
     elif proto_menu == '2':
       UDP_count=0
       for packet in packets:
@@ -86,6 +87,7 @@ def protocols(packets):
           print(packet.summary,'\n')
       print('The total amount of UDP connections is: '+str(UDP_count))
       loop=False
+      cont()
     elif proto_menu == '3':
       ICMP_count=0
       for packet in packets:
@@ -94,6 +96,7 @@ def protocols(packets):
           print(packet.summary,'\n')
       print('The total amount of ICMP connections is: '+str(ICMP_count))
       loop=False
+      cont()
     elif proto_menu == '4':
       Other_count=0
       for packet in packets:
@@ -102,6 +105,7 @@ def protocols(packets):
           print(packet.summary,'\n')
       print('The total amount of other connections is: '+str(Other_count))
       loop=False
+      cont()
     else:
       print('Please enter a valid menu option.')
 
@@ -115,6 +119,7 @@ def ip_search(packets):
       if IP in packet:
         if packet[IP].src == ip_input or packet[IP].dst == ip_input:
           print(packet.summary,'\n')
+    cont()
   else:
     ip_search(packets)
 
@@ -139,6 +144,19 @@ def format_func(ip_list):
   print('-------------------------------------')
   print('| Total {0: >27} |'.format(str(total)))
   print('-------------------------------------')
+  cont()
+
+def cont():
+  loop = True
+  while loop:
+    cont_menu = input('Continue? [Y/N]\n')
+    if cont_menu == 'Y':
+      main()
+      loop=False
+    elif cont_menu == 'N':
+      sys.exit('Goodbye!')
+    else:
+      print('Please enter Y or N.')
 
 global shark
 shark = '''
