@@ -72,40 +72,40 @@ def protocols(packets):
     proto_menu = input('Which type of protocol?\n[1] TCP \n[2] UDP \n[3] ICMP \n[4] Other\n')
     if proto_menu == '1':
       TCP_count=0
+      TCP_list=[]
       for packet in packets:
         if TCP in packet:
           TCP_count+=1
-          print(packet.summary,'\n')
+          TCP_list+=PacketList([packet])
       print('The total amount of TCP connections is: '+str(TCP_count))
-      loop=False
-      cont()
+      return(page_func(TCP_list,0))
     elif proto_menu == '2':
       UDP_count=0
+      UDP_list=[]
       for packet in packets:
         if UDP in packet:
           UDP_count+=1
-          print(packet.summary,'\n')
+          UDP_list+=PacketList([packet])
       print('The total amount of UDP connections is: '+str(UDP_count))
-      loop=False
-      cont()
+      return(page_func(UDP_list,0))
     elif proto_menu == '3':
       ICMP_count=0
+      ICMP_list=[]
       for packet in packets:
         if ICMP in packet:
           ICMP_count+=1
-          print(packet.summary,'\n')
+          ICMP_list+=PacketList([packet])
       print('The total amount of ICMP connections is: '+str(ICMP_count))
-      loop=False
-      cont()
+      return(page_func(ICMP_list,0))
     elif proto_menu == '4':
       Other_count=0
+      Other_list=[]
       for packet in packets:
         if TCP not in packet and UDP not in packet and ICMP not in packet:
           Other_count+=1
-          print(packet.summary,'\n')
+          Other_list+=PacketList([packet])
       print('The total amount of other connections is: '+str(Other_count))
-      loop=False
-      cont()
+      return(page_func(Other_list,0))
     else:
       print('Please enter a valid menu option.')
 
@@ -146,6 +146,26 @@ def format_func(ip_list):
   print('-------------------------------------')
   cont()
 
+def page_func(list, pos):
+  end = pos + 5
+  for packet in list[pos:end]:
+    print(pos,packet.summary,'\n')
+    pos += 1
+  loop = True
+  while loop:
+    page_menu = input('Previous[<] Next[>] Stop[0]\n')
+    if page_menu == '<':
+      pos -= 10
+      if pos < 0:
+        pos = 0
+      return(page_func(list,pos))
+    elif page_menu == '>':
+      page_func(list,pos)
+    elif page_menu == '0':
+      cont()
+    else:
+      print('Please enter a valid menu option.')
+
 def cont():
   loop = True
   while loop:
@@ -154,7 +174,7 @@ def cont():
       main()
       loop=False
     elif cont_menu == 'N':
-      sys.exit('Goodbye!')
+      sys.exit('Come back for another byte!')
     else:
       print('Please enter Y or N.')
 
