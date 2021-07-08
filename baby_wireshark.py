@@ -158,11 +158,11 @@ def page_func(list, pos):
       pos -= 10
       if pos < 0:
         pos = 0
-      return(page_func(list,pos))
+      return(page_func(list, pos))
     elif page_menu == '>':
-      page_func(list,pos)
+      return(page_func(list, pos))
     elif page_menu == '0':
-      cont()
+      return(cont())
     else:
       print('Please enter a valid menu option.')
 
