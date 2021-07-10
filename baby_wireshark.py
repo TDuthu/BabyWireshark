@@ -8,8 +8,10 @@ re_ip = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 #main will take in a file and forward it to the correct parser
 def main():
   print(shark)
+  #check if a file was provided
   if len(sys.argv) != 2:
     sys.exit('Please execute with one file next time.')
+  #prompt user for file type and forward to the correct parser
   else:
     input_file = sys.argv[1]
     loop = True
@@ -24,7 +26,7 @@ def main():
       else:
         print('Please select a valid menu option.')
 
-#txt_parser will take in a text file, grab all IP addresses, and forward to format_func
+#txt_parser will take in a text file, grab all IP addresses, and forward to the format_function
 def txt_parser(input_file):
   raw_list = []
   ip_list = []
@@ -35,7 +37,7 @@ def txt_parser(input_file):
   for line in line_list:
     raw_list.append(re.findall(re_ip, line))
   raw_list = list(filter(None, raw_list))
-  #format raw_list in to a list of strings and output
+  #format raw_list in to a list of strings then forward to format_function
   ip_list = [item for sublist in raw_list for item in sublist]
   format_func(ip_list)
 
@@ -43,6 +45,7 @@ def txt_parser(input_file):
 def pcap_parser(packets):
   print(shark)
   loop = True
+  #prompt user for which function they would like to perform
   while loop:
     pcap_menu = input('What are you looking for?\n[1] Sources\n[2] Destinations\n[3] Protocols\n[4] IP Search\n')
     if pcap_menu == '1':
@@ -68,6 +71,7 @@ def pcap_parser(packets):
 def protocols(packets):
   print(shark,'\n',packets)
   loop = True
+  #prompt user for which protocol they would like info about and forward to the page_function
   while loop:
     proto_menu = input('Which type of protocol?\n[1] TCP \n[2] UDP \n[3] ICMP \n[4] Other\n')
     if proto_menu == '1':
@@ -113,6 +117,7 @@ def protocols(packets):
 def ip_search(packets):
   print(shark)
   ip_input = input('Enter an IP address: ')
+  #check for a valid IP
   if re.match(re_ip, ip_input) != None:
     print('I found these packets with that IP:\n')
     for packet in packets:
@@ -120,6 +125,7 @@ def ip_search(packets):
         if packet[IP].src == ip_input or packet[IP].dst == ip_input:
           print(packet.summary,'\n')
     cont()
+  #without a valid IP, prompt the user again
   else:
     ip_search(packets)
 
@@ -145,13 +151,16 @@ def format_func(ip_list):
   print('| Total {0: >27} |'.format(str(total)))
   print('-------------------------------------')
   cont()
-
+  
+#page_func takes in a packet list and the user's position in the list to control output
 def page_func(list, pos):
   end = pos + 5
+  #print five packets at a time
   for packet in list[pos:end]:
     print(pos,packet.summary,'\n')
     pos += 1
   loop = True
+  #prompt user with page controls
   while loop:
     page_menu = input('Previous[<] Next[>] Stop[0]\n')
     if page_menu == '<':
@@ -166,6 +175,7 @@ def page_func(list, pos):
     else:
       print('Please enter a valid menu option.')
 
+#loop back to main function or exit program depending on user input
 def cont():
   loop = True
   while loop:
@@ -178,6 +188,7 @@ def cont():
     else:
       print('Please enter Y or N.')
 
+#shark
 global shark
 shark = '''
                                                                 ██████████                                      
