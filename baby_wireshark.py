@@ -180,10 +180,10 @@ def cont():
   loop = True
   while loop:
     cont_menu = input('Continue? [Y/N]\n')
-    if cont_menu == 'Y':
+    if cont_menu == 'Y' or cont_menu == 'y':
       main()
       loop=False
-    elif cont_menu == 'N':
+    elif cont_menu == 'N' or cont_menu == 'n':
       sys.exit('Come back for another byte!')
     else:
       print('Please enter Y or N.')
