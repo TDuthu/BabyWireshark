@@ -21,8 +21,10 @@ def main():
         return(txt_parser(input_file))
       elif main_menu == '2':
         global packets
-        packets = rdpcap(input_file)
-        return(pcap_parser(packets))
+        if packets == null:
+          packets = rdpcap(input_file)
+        else:
+          return(pcap_parser(packets))
       else:
         print('Please select a valid menu option.')
 
